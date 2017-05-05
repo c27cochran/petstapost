@@ -1,0 +1,16 @@
+Header set Access-Control-Allow-Origin "*"
+
+RewriteEngine On
+
+# Unless directory, remove trailing slash
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]+)/$ http://localhost:8888/petstapost/util/$1 [R=301,L]
+# RewriteRule ^([^/]+)/$ http://petstapost.com/util/$1 [R=301,L]
+
+# Redirect external .php requests to extensionless url
+RewriteCond %{THE_REQUEST} ^(.+)\.php([#?][^\ ]*)?\ HTTP/
+RewriteRule ^(.+)\.php$ http://localhost:8888/petstapost/util/$1 [R=301,L]
+# RewriteRule ^(.+)\.php$ http://petstapost.com/util/$1 [R=301,L]
+
+# Resolve .php file for extensionless php urls
+RewriteRule ^([^/.]+)$ $1.php [L]
